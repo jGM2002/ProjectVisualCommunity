@@ -3,18 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:proyecto"
+        xmlns:local="clr-namespace:proyecto" d:DataContext="{d:DesignInstance Type=local:Visita}"
         mc:Ignorable="d"
         Title="ModificarVisitaWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Margin="10">
             <Label Content="Pacient: "/>
-            <TextBox x:Name="txtPacient"/>
+            <TextBox x:Name="txtPacient" Validation.Error="Validation_Error" Text="{Binding Path=Pacient,
+                                                        NotifyOnValidationError=True,
+                                                        ValidatesOnDataErrors=True,
+                                                        ValidatesOnExceptions=True,
+                                                        UpdateSourceTrigger=PropertyChanged}"/>
+            <Label x:Name="lblErrorPacient" Foreground="Red"/>
             <Label Content="Data de la Visita: " />
-            <TextBox x:Name="txtDataVisita"/>
+            <DatePicker x:Name="txtDataVisita" Validation.Error="Validation_Error" SelectedDate="{Binding Path=DataVisita,
+                                                        NotifyOnValidationError=True,
+                                                        ValidatesOnDataErrors=True,
+                                                        ValidatesOnExceptions=True,
+                                                        UpdateSourceTrigger=PropertyChanged}"/>
+            <Label x:Name="lblErrorDataVisita" Foreground="Red"/>
             <Label Content="Motiu: "/>
-            <TextBox x:Name="txtMotiu"/>
-            <Button Content="Aplicar Canvis" Click="AplicarCanvis_Click" />
+            <TextBox x:Name="txtMotiu" Validation.Error="Validation_Error" Text="{Binding Path=Motiu,
+                                                        NotifyOnValidationError=True,
+                                                        ValidatesOnDataErrors=True,
+                                                        ValidatesOnExceptions=True,
+                                                        UpdateSourceTrigger=PropertyChanged}"/>
+            <Label x:Name="lblErrorMotiu" Foreground="Red"/>
+            <Button x:Name="btnAplicarCanvis" Content="Aplicar Canvis" Click="AplicarCanvis_Click" />
+            <Button Content="Cancelar" Click="Cancelar_Click" />
         </StackPanel>
     </Grid>
 </Window>

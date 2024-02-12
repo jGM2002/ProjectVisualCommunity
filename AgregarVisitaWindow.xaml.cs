@@ -29,5 +29,9 @@ namespace proyecto
 
             Close();
         }
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

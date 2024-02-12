@@ -58,6 +58,7 @@
     <Compile Include="AgregarVisitaWindow.xaml.cs">
       <DependentUpon>AgregarVisitaWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LogicClinica.cs" />
     <Compile Include="ModificarVisitaWindow.xaml.cs">
       <DependentUpon>ModificarVisitaWindow.xaml</DependentUpon>
     </Compile>

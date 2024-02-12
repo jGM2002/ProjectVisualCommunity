@@ -9,12 +9,12 @@
     <Grid>
         <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="10,10,10,50">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pacient" Binding="{Binding Pacient}"/>
-                <DataGridTextColumn Header="Data de la visita" Binding="{Binding DataVisita}"/>
-                <DataGridTextColumn Header="Motiu" Binding="{Binding Motiu}"/>
+                <DataGridTextColumn Header="Pacient" Binding="{Binding Path=Pacient}"/>
+                <DataGridTextColumn Header="Data de la visita" Binding="{Binding Path=DataVisita}"/>
+                <DataGridTextColumn Header="Motiu" Binding="{Binding Path=Motiu}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Menu Height="31" VerticalAlignment="Top" Margin="0,403,0,0">
+        <Menu Height="35" VerticalAlignment="Top" Margin="0,389,0,0">
             <MenuItem Header="Visites" RenderTransformOrigin="0.502,0.559">
                 <MenuItem Header="Afegir Visita" Click="AfegirVisita_Click"/>
                 <MenuItem Header="Modificar Visita" Click="ModificarVisita_Click"/>

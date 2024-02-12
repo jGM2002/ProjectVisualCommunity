@@ -11,10 +11,11 @@
             <Label Content="Pacient:" />
             <TextBox x:Name="txtPacient" />
             <Label Content="Data de la Visita" />
-            <TextBox x:Name="txtDataVisita" />
+            <DatePicker x:Name="txtDataVisita" />
             <Label Content="Motiu" />
             <TextBox x:Name="txtMotiu" />
             <Button Content="Afegir Visita" Click="AfegirVisita_Click" />
+            <Button Content="Cancelar" Click="Cancelar_Click"/>
         </StackPanel>
     </Grid>
 </Window>

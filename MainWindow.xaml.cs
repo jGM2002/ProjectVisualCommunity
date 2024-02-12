@@ -6,13 +6,13 @@ namespace proyecto
 {
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Visita> visitas;
+        private LogicClinica logicClinica;
+
         public MainWindow()
         {
             InitializeComponent();
-            visitas = new ObservableCollection<Visita>();
-            visitas.Add(new Visita { Pacient= "Pacient1", DataVisita= "01/01/2022", Motiu = "Motiu confidencial"});
-            dataGrid.ItemsSource = visitas;
+            logicClinica = new LogicClinica();
+            dataGrid.ItemsSource = logicClinica.llistaVis;
         }
 
         private void AfegirVisita_Click(object sender, RoutedEventArgs e)
@@ -22,7 +22,7 @@ namespace proyecto
 
             if(agregarVisitaWindow.VisitaNueva != null)
             {
-                visitas.Add(agregarVisitaWindow.VisitaNueva);
+                logicClinica.AfegirVisita(agregarVisitaWindow.VisitaNueva);
             }
         }
 
@@ -30,15 +30,15 @@ namespace proyecto
         {
             if(dataGrid.SelectedItem != null)
             {
-                Visita visitaSeleccionada = (Visita)dataGrid.SelectedItem;
+                Visita visitaAMod = (Visita)dataGrid.SelectedItem;
+                int posicioAMod = dataGrid.SelectedIndex;
 
-                ModificarVisitaWindow modificarVisitaWindow = new ModificarVisitaWindow(visitaSeleccionada);
-                modificarVisitaWindow.ShowDialog();
+                ModificarVisitaWindow winSec = new ModificarVisitaWindow((Visita)visitaAMod.Clone(), logicClinica, posicioAMod);
+                winSec.ShowDialog();
 
-                if(modificarVisitaWindow.VisitaModificada != null)
+                if(winSec.visita != null)
                 {
-                    int index = visitas.IndexOf(visitaSeleccionada);
-                    visitas[index] = modificarVisitaWindow.VisitaModificada;
+                    logicClinica.ModificarVisita(posicioAMod, winSec.visita);
                 }
                 else
                 {

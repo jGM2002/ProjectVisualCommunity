@@ -1,18 +1,33 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace proyecto
 {
     public partial class ModificarVisitaWindow : Window
     {
-        public Visita VisitaModificada {  get; private set; }
+        private LogicClinica logicClinica;
+        private int posicion;
+        private bool modificar;
+        public Visita visita;
+        private int numError = 0;
 
-        public ModificarVisitaWindow(Visita visita)
+        public ModificarVisitaWindow(LogicClinica logicClinica)
         {
             InitializeComponent();
-            txtPacient.Text = visita.Pacient;
-            txtDataVisita.Text = visita.DataVisita;
-            txtMotiu.Text = visita.Motiu;
+            this.logicClinica = logicClinica;
+            modificar = false;
+            DataContext = new Visita();
+        }
+
+        public ModificarVisitaWindow(Visita visita, LogicClinica logic, int pos)
+        {
+            InitializeComponent();
+            this.logicClinica = logic;
+            this.visita = visita;
+            this.posicion = pos;
+            DataContext = visita;
+            modificar = true;
         }
 
         private void AplicarCanvis_Click(object sender, RoutedEventArgs e)
@@ -23,14 +38,53 @@ namespace proyecto
                 return;
             }
 
-            VisitaModificada = new Visita
+            if(!modificar)
             {
-                Pacient = txtPacient.Text,
-                DataVisita = txtDataVisita.Text,
-                Motiu = txtMotiu.Text
-            };
+                logicClinica.AfegirVisita((Visita)DataContext);
+            }
+            else
+            {
+                logicClinica.ModificarVisita(posicion, (Visita)DataContext);
+            }
 
             Close();
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if(e.Action == ValidationErrorEventAction.Added)
+            {
+                numError++;
+            }
+            else if(e.Action == ValidationErrorEventAction.Removed)
+            {
+                numError--;
+            }
+
+            btnAplicarCanvis.IsEnabled = (numError == 0);
+
+            lblErrorPacient.Content = "";
+            foreach(var error in visita.ErroresActuales)
+            {
+                lblErrorPacient.Content += error + "\n";
+            }
+
+            lblErrorDataVisita.Content = "";
+            foreach(var error in visita.ErroresActuales)
+            {
+                lblErrorDataVisita.Content += error + "\n";
+            }
+
+            lblErrorMotiu.Content = "";
+            foreach(var error in visita.ErroresActuales)
+            {
+                lblErrorMotiu.Content += error + "\n";
+            }
         }
     }
 }
